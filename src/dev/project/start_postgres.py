@@ -34,8 +34,8 @@ local all all trust
     # Move the default directory where the socket is from /tmp to right here.
     socket_dir = os.path.join(PG_DATA, 'socket')
     s += "unix_socket_directories = '%s'\nlisten_addresses=''\n"%socket_dir
-    os.makedirs(socket_dir)
-    util.cmd("chmod og-rwx '%s'"%PG_DATA)  # just in case -- be paranoid...
+    os.makedirs(socket_dir, 0o700)
+    # util.cmd("chmod og-rwx '%s'"%PG_DATA)  # just in case -- be paranoid...
     open(conf,'w').write(s)
 
     # Create script so that clients will know where socket dir is.
